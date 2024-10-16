@@ -51,7 +51,7 @@ double *Vector::get_data()
     return data;
 }
 
-double Vector::mean() const
+double Vector::mean()
 {
     double sum{0};
 
@@ -63,7 +63,7 @@ double Vector::mean() const
     return sum / static_cast<double>(size);
 }
 
-double Vector::magnitude() const
+double Vector::magnitude()
 {
     auto dot_prod{dot(*this)};
     return std::sqrt(dot_prod);
@@ -93,7 +93,7 @@ Vector Vector::operator-(double sub)
     return result;
 }
 
-double Vector::dot(Vector rhs) const
+double Vector::dot(Vector& rhs)
 {
     double result{0};
 
