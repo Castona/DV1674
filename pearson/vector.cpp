@@ -51,16 +51,6 @@ double *Vector::get_data()
     return data;
 }
 
-double Vector::operator[](unsigned i) const
-{
-    return data[i];
-}
-
-double &Vector::operator[](unsigned i)
-{
-    return data[i];
-}
-
 double Vector::mean() const
 {
     double sum{0};
@@ -85,7 +75,7 @@ Vector Vector::operator/(double div)
 
     for (auto i{0}; i < size; i++)
     {
-        result[i] /= div;
+        result.data[i] /= div;
     }
 
     return result;
@@ -97,7 +87,7 @@ Vector Vector::operator-(double sub)
 
     for (auto i{0}; i < size; i++)
     {
-        result[i] -= sub;
+        result.data[i] -= sub;
     }
 
     return result;
@@ -109,7 +99,7 @@ double Vector::dot(Vector rhs) const
 
     for (auto i{0}; i < size; i++)
     {
-        result += data[i] * rhs[i];
+        result += data[i] * rhs.data[i];
     }
 
     return result;

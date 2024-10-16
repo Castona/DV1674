@@ -27,8 +27,6 @@ public:
 
     Vector operator/(double div);
     Vector operator-(double sub);
-    double operator[](unsigned i) const;
-    double& operator[](unsigned i);
 };
 
 #endif
