@@ -26,14 +26,19 @@ namespace Filter
     {
         Matrix scratch{PPM::max_dimension};
         auto dst{m};
+		
+		//1. Moved out of both of the nested loops because it only needs to be calculated once
+		double w[Gauss::max_radius]{};
+        Gauss::get_weights(radius, w);
+		
+		//2. Taken out of every for-loop conditional to reduce unnecessary function calls
+		int xSize = dst.get_x_size();
+		int ySize = dst.get_y_size();
 
-        for (auto x{0}; x < dst.get_x_size(); x++)
+        for (auto x{0}; x < xSize; x++)
         {
-            for (auto y{0}; y < dst.get_y_size(); y++)
+            for (auto y{0}; y < ySize; y++)
             {
-                double w[Gauss::max_radius]{};
-                Gauss::get_weights(radius, w);
-
                 // unsigned char Matrix::r(unsigned x, unsigned y) const
                 // {
                 //     return R[y * x_size + x];
@@ -53,7 +58,7 @@ namespace Filter
                         n += wc;
                     }
                     x2 = x + wi;
-                    if (x2 < dst.get_x_size())
+                    if (x2 < xSize)
                     {
                         r += wc * dst.r(x2, y);
                         g += wc * dst.g(x2, y);
@@ -67,9 +72,9 @@ namespace Filter
             }
         }
 
-        for (auto x{0}; x < dst.get_x_size(); x++)
+        for (auto x{0}; x < xSize; x++)
         {
-            for (auto y{0}; y < dst.get_y_size(); y++)
+            for (auto y{0}; y < ySize; y++)
             {
                 double w[Gauss::max_radius]{};
                 Gauss::get_weights(radius, w);
@@ -88,7 +93,7 @@ namespace Filter
                         n += wc;
                     }
                     y2 = y + wi;
-                    if (y2 < dst.get_y_size())
+                    if (y2 < ySize)
                     {
                         r += wc * scratch.r(x, y2);
                         g += wc * scratch.g(x, y2);

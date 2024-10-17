@@ -2,8 +2,6 @@
 Author: David Holmqvist <daae19@student.bth.se>
 */
 
-#include <iostream>
-
 #if !defined(MATRIX_HPP)
 #define MATRIX_HPP
 
