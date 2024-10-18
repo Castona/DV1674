@@ -14,9 +14,10 @@ int main(int argc, char const* argv[])
         std::exit(1);
     }
 
-    auto datasets { Dataset::read(argv[1]) };
-    auto corrs { Analysis::correlation_coefficients(datasets) };
-    Dataset::write(corrs, argv[2]);
+    dataset data;
+    data.data = Dataset::read(argv[1]);
+    Analysis::correlation_coefficients((void*)&data);
+    Dataset::write(data.result, argv[2]);
 
     return 0;
 }

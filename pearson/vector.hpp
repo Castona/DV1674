@@ -1,7 +1,7 @@
 /*
 Author: David Holmqvist <daae19@student.bth.se>
 */
-
+#pragma once
 #if !defined(VECTOR_HPP)
 #define VECTOR_HPP
 
