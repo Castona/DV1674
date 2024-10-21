@@ -10,21 +10,15 @@ Author: David Holmqvist <daae19@student.bth.se>
 //New for task 3: Add pthreads to do parallelization
 #include <pthread.h>
 
-//Example, will make better 
-//Synchronization stuff like mutex locks shouldn't be necessary since it's irrelevant if one thread is working faster than the other (I think, lol)
-//int threadCount = 16;
-
 //Struct to store data between threads
 struct ThreadData
 {
-	//So for input and output, we'll need to store matrices
 	Matrix* inputMatrix = NULL;
 	Matrix* outputMatrix = NULL;
 	
 	int beginX;
 	int endX;
 	
-	//ySize for this thread
 	int beginY;
 	int endY;
 
@@ -161,14 +155,11 @@ namespace Filter
 		int sizeX = toReturn.get_x_size();
 		int sizeY = toReturn.get_y_size();
 		
-		//Multi-threading time
 		pthread_t threads[threadCount];
 		ThreadData threadData[threadCount];
 		
 		//Get how much one thread is supposed to work on
-        //So let's instead just split down the middle of the image in Y
-		//int chunkSizeX = sizeX / threadCount;
-		int chunkSizeY = sizeX / threadCount;
+		int chunkSizeY = sizeY / threadCount;
 		
 		//Blur X
 		for(int i = 0; i < threadCount; i++)
@@ -251,10 +242,6 @@ namespace Filter
         {
             for (auto y{0}; y < ySize; y++)
             {
-                // unsigned char Matrix::r(unsigned x, unsigned y) const
-                // {
-                //     return R[y * x_size + x];
-                // }
 
                 auto r{w[0] * dst.r(x, y)}, g{w[0] * dst.g(x, y)}, b{w[0] * dst.b(x, y)}, n{w[0]};
 
